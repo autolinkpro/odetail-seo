@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { slide as Menu } from "react-burger-menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,27 @@ import { menuStyles } from "@/utils/menuStyles";
 
 const NavItems: React.FC = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Handle Click Outside to Close Dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
 
   return (
     <>
@@ -40,8 +61,8 @@ const NavItems: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/rock-chip-repair" className="hover:text-gray-300">
-                Rock Chip Repair
+              <Link href="/chip-repair" className="hover:text-gray-300">
+                Chip Repair
               </Link>
             </li>
             <li>
@@ -71,19 +92,13 @@ const NavItems: React.FC = () => {
           </Link>
         </li>
         <li>
-          <Link href="/mobile-service" className="hover:text-gray-300">
-            Mobile Service
-          </Link>
-        </li>
-        <li>
           <Link href="/windshield-replacement" className="hover:text-gray-300">
             Windshield Replacement
           </Link>
         </li>
-        <li className="relative">
+        <div className="relative" ref={dropdownRef}>
           <button
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
+            onClick={() => setDropdownOpen((prev) => !prev)}
             className="flex items-center space-x-2 hover:text-gray-300"
           >
             <span>More</span>
@@ -94,10 +109,10 @@ const NavItems: React.FC = () => {
           {isDropdownOpen && (
             <ul
               className="absolute top-full right-0 mt-2 w-40 bg-[#1d2124] text-white rounded-md shadow-lg p-2 border-b-2 border-aztecBlue"
-              onMouseLeave={() => setDropdownOpen(false)}
+              onMouseLeave={() => setDropdownOpen((prev) => !prev)}
             >
               <li className="p-2 hover:text-gray-300">
-                <Link href="/rock-chip-repair">Rock Chip Repair</Link>
+                <Link href="/chip-repair">Chip Repair</Link>
               </li>
               <li className="p-2 hover:text-gray-300">
                 <Link href="/privacy-policy">Privacy Policy</Link>
@@ -107,7 +122,7 @@ const NavItems: React.FC = () => {
               </li>
             </ul>
           )}
-        </li>
+        </div>
       </ul>
     </>
   );

@@ -9,7 +9,13 @@ interface BookingData {
   model: string;
   selectedDate: string;
   selectedTime: string;
-  service: { name: string; duration: string }[];
+  package: {
+    name: string;
+    addons: {
+      name: string;
+    }[];
+    duration: string;
+  } | null;
 }
 
 interface BookingContextType {
@@ -21,24 +27,25 @@ interface BookingProviderProps {
   children: ReactNode;
 }
 
-const BookingContext = createContext<BookingContextType | undefined>(undefined);
+const BookingContext = createContext<BookingContextType | null>(null);
 
-export const useBooking = () => useContext(BookingContext);
+export const useBooking = (): BookingContextType => {
+  const context = useContext(BookingContext);
+  if (!context) {
+    throw new Error("useBooking must be used within a BookingProvider");
+  }
+  return context;
+};
 
 export const BookingProvider = ({ children }: BookingProviderProps) => {
-  const [bookingData, setBookingData] = useState({
+  const [bookingData, setBookingData] = useState<BookingData>({
     carType: "",
     year: "",
     make: "",
     model: "",
     selectedDate: "",
     selectedTime: "",
-    service: [
-      {
-        name: "",
-        duration: "",
-      },
-    ],
+    package: null,
   });
 
   return (

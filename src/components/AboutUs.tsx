@@ -1,143 +1,87 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CarModelCanvas from "./CarModel";
 import { useRouter } from "next/navigation";
+import { detailPackages } from "@/utils/constants";
 
 const AboutUs = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
 
-  const nextView = () => {
-    setActiveIndex((prev) => (prev + 1) % windshieldTypes.length);
-  };
-
-  const prevView = () => {
-    setActiveIndex(
-      (prev) => (prev - 1 + windshieldTypes.length) % windshieldTypes.length
-    );
-  };
-
-  const windshieldTypes = [
-    {
-      model: "/models/mazda_model.glb",
-      title: "Windshield",
-      subtitle: "Premium Protection for Your Vehicle",
-      time: "90 minutes",
-      features: [
-        "Scratch-resistant glass",
-        "UV protection coating",
-        "Affordable pricing",
-      ],
-      primitivePos: [-46, -50, -45],
-      camPos: [0, 5, -15],
-      lookPos: [0, 8, -30],
-      rotation: [0, 0, 0],
-    },
-    {
-      model: "/models/mazda_model.glb",
-      title: "Side Glass",
-      subtitle: "Enhanced Durability and Clarity",
-      time: "90 minutes",
-      features: [
-        "Enhanced clarity",
-        "Thermal protection",
-        "Premium durability",
-      ],
-      primitivePos: [-46, -50, -45],
-      camPos: [150, -5, -165],
-      lookPos: [150, 0, -170],
-      rotation: [-170, 90, 170],
-    },
-    {
-      model: "/models/mazda_model.glb",
-      title: "Back Glass",
-      subtitle: "Enhanced Durability and Clarity",
-      time: "120 minutes",
-      features: [
-        "Enhanced clarity",
-        "Thermal protection",
-        "Premium durability",
-      ],
-      primitivePos: [-46, -50, -45],
-      camPos: [1.5, 15, -305],
-      lookPos: [1.5, 0, -305],
-      rotation: [-170, 1, 180],
-    },
-  ];
-
-  const activeView = windshieldTypes[activeIndex];
-
   return (
-    <div className="flex flex-col w-full py-12 items-center text-black">
-      <div className="flex flex-col lg:flex-row items-center justify-between w-3/4">
-        {/* Car Model */}
-        <div className="relative w-full lg:w-3/4 rounded-t-xl md:rounded-l-xl md:rounded-r-none">
-          <CarModelCanvas
-            modelPath={activeView.model}
-            primitivePos={activeView.primitivePos}
-            camPos={activeView.camPos}
-            lookPos={activeView.lookPos}
-            rotation={activeView.rotation}
-          />
-
-          {/* Navigation Buttons */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
-            <button
-              onClick={prevView}
-              className="mx-4 p-4 bg-aztecBlue text-white font-semibold rounded-full shadow-md hover:bg-blue-700 transition-all duration-300 flex items-center justify-center w-[60px] h-[60px]"
-            >
-              ❮
-            </button>
-            <button
-              onClick={nextView}
-              className="mx-4 p-4 bg-aztecBlue text-white font-semibold rounded-full shadow-md hover:bg-blue-700 transition-all duration-300 flex items-center justify-center w-[60px] h-[60px]"
-            >
-              ❯
-            </button>
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-6 py-10 mt-6">
+      {detailPackages.map((packageDetail, index) => (
+        <div
+          key={index}
+          className={`relative bg-white rounded-lg shadow-lg p-6 text-center border border-gray-300 
+            ${
+              packageDetail.title.includes("Deluxe")
+                ? "border-blue-500 shadow-xl py-8"
+                : "py-6"
+            } 
+            transition-transform duration-300 hover:scale-105 w-full md:w-1/2 max-w-lg`}
+        >
+          <h3 className="text-3xl font-black text-aztecBlue">
+            {packageDetail.title}
+          </h3>
+          <div className="flex text-lg text-black font-bold gap-2 justify-center items-center">
+            <div className="flex justify-center items-center gap-2">
+              <FontAwesomeIcon icon={faClock} className="text-aztecBlue" />
+              {packageDetail.time}
+            </div>
           </div>
-        </div>
-
-        {/* Description */}
-        <div className="w-full lg:w-1/3 p-8 md:p-14 text-center md:text-left rounded-b-xl md:rounded-r-xl md:rounded-l-none bg-white shadow-md">
-          <div className="flex flex-col">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-black">
-              {activeView.title}
-            </h2>
-            <p className="flex items-center text-sm md:text-lg font-bold text-black py-2 tracking-wide">
-              <FontAwesomeIcon
-                icon={faClock}
-                className="text-aztecBlue mr-2 text-base md:text-lg"
-              />
-              {activeView.time} minimum
-            </p>
-          </div>
+          <p className="text-sm text-black font-semibold mt-2">
+            {packageDetail.description}
+          </p>
+          <div className="w-full h-[1.5px] bg-gray-400 my-4" />
 
           {/* Features List */}
-          <ul className="list-none space-y-2 my-4 font-normal">
-            {activeView.features.map((feature, index) => (
-              <li key={index} className="flex items-center text-sm">
-                <span className="text-green-500 mr-2 text-lg">✓</span>
+          <ul className="mt-4 space-y-2 text-lg text-gray-900 font-normal text-left">
+            {packageDetail.features.map((feature, i) => (
+              <li key={i} className="flex items-start">
+                <span className="text-aztecGreen mr-2 text-lg">✓</span>
                 {feature}
               </li>
             ))}
           </ul>
 
-          {/* Action Button */}
+          {/* Shine Package (Only for Deluxe) */}
+          {packageDetail.shinePackage && (
+            <>
+              <h4 className="mt-6 text-lg font-semibold text-black">
+                + Shine Package Included:
+              </h4>
+              <ul className="mt-2 space-y-2 text-base text-gray-900 text-left">
+                {packageDetail.shinePackage.map((item, i) => (
+                  <li key={i} className="flex items-start">
+                    <span className="mr-2 text-lg">✨</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {/* Call to Action */}
           <button
-            aria-label={`Get a quote for ${activeView.title}`}
+            className="mt-6 w-full bg-aztecBlue text-white py-2 rounded-full hover:bg-blue-600 transition font-bold"
             onClick={() => router.push("/quote")}
-            className="w-full p-5 bg-aztecBlue text-white font-semibold rounded-full shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-95"
           >
-            Get Quote
+            Get Package
           </button>
+
+          {/* Highlighted Badge for Deluxe */}
+          {packageDetail.title.includes("Deluxe") && (
+            <span className="absolute top-0 right-0 bg-aztecBlue text-white text-xs px-2 py-1 rounded-bl-lg rounded-tr-lg">
+              Most Popular
+            </span>
+          )}
         </div>
-      </div>
+      ))}
     </div>
   );
 };

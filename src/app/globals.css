@@ -10,31 +10,31 @@
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/proximanova_regular.ttf") format("truetype");
-  font-weight: "normal";
+  font-weight: 400;
 }
 
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/proximanova_light.otf") format("opentype");
-  font-weight: "light";
+  font-weight: 300;
 }
 
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/proximanova_extrabold.otf") format("opentype");
-  font-weight: "extrabold";
+  font-weight: 800;
 }
 
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/proximanova_bold.otf") format("opentype");
-  font-weight: "bold";
+  font-weight: 700;
 }
 
 @font-face {
   font-family: "Proxima Nova";
   src: url("/fonts/proximanova_black.otf") format("opentype");
-  font-weight: "black";
+  font-weight: 900;
 }
 
 :root {
@@ -52,4 +52,35 @@ body {
   font-family: "Proxima Nova", "Montserrat", "Merriweather", "Roboto", "Oswald";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply bg-aztecBlue flex items-center justify-center shadow-lg transition-transform duration-200;
+  top: 10% !important;
+  color: white !important;
+  z-index: 10 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 50% !important;
+}
+
+.swiper-button-prev {
+  @apply left-4;
+}
+
+.swiper-button-next {
+  @apply right-4;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  @apply bg-white text-aztecBlue scale-110;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
 }

@@ -1,15 +1,12 @@
 import AboutUs from "@/components/AboutUs";
+import BookingSteps from "@/components/BookingSteps";
 import Button from "@/components/Button";
-import { Footer } from "@/components/Footer";
 import Location from "@/components/Location";
-import NavBar from "@/components/Navbar";
 import React from "react";
 
 const Home = () => {
   return (
     <div className="flex flex-col w-full h-full items-center">
-      <NavBar />
-
       {/* Header Section */}
       <div className="relative flex flex-col w-full items-center justify-center min-h-screen px-6">
         {/* Video Background */}
@@ -27,14 +24,14 @@ const Home = () => {
         {/* Content */}
         <div className="z-10 text-center">
           <h1 className="font-black text-3xl xl:text-8xl md:text-5xl text-white sm:leading-tight lg:leading-snug xl:leading-normal">
-            Same-Day Autoglass
+            Airdrie Auto
           </h1>
           <h2 className="text-2xl md:text-7xl tracking-wide font-extrabold text-aztecBlue mb-8">
-            Replacements
+            Detailing
           </h2>
           <p className="text-sm xl:text-lg text-gray-200 font-normal md:mt-4 max-w-xl mx-auto">
             Get in touch today for a free, no-obligation quote and let us handle
-            your auto glass needs with ease and professionalism.
+            your auto detailing needs with ease and professionalism.
           </p>
           <div className="flex items-center justify-center md:space-x-6 gap-2 md:gap-0 mt-8 flex-wrap">
             <Button theme="filled" text="Get Free Quote" />
@@ -45,6 +42,7 @@ const Home = () => {
 
       {/* Spacing */}
       <div className="h-16" />
+      <BookingSteps />
 
       {/* Section 2 - What We Offer */}
       <div
@@ -61,12 +59,12 @@ const Home = () => {
             What We Offer
           </h3>
           <h2 className="text-2xl md:text-6xl font-extrabold text-white tracking-wide mb-4 text-center leading-tight">
-            Fast & reliable Auto Glass Replacement
+            Reliable customized detailing services
           </h2>
           <h3 className="text-lg md:text-2xl font-bold uppercase text-white my-4">
             Guaranteed High Quality Results
           </h3>
-          {/* <AboutUs /> */}
+          <AboutUs />
         </div>
       </div>
 
@@ -80,9 +78,6 @@ const Home = () => {
 
       {/* Spacing */}
       <div className="h-24" />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

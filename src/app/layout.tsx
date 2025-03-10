@@ -3,6 +3,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { BookingProvider } from "@/hooks/useBooking";
+import NavBar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "O Detail",
@@ -16,11 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <BookingProvider>
-        <body className={`antialiased`}>
+      <body className={`antialiased`}>
+        <BookingProvider>
+          <NavBar />
           {children} <ToastContainer position="bottom-right" theme="dark" />
-        </body>
-      </BookingProvider>
+        </BookingProvider>
+        <Footer />
+      </body>
     </html>
   );
 }
