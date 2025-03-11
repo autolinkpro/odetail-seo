@@ -31,7 +31,7 @@ const AboutUs = () => {
           <div className="flex text-lg text-black font-bold gap-2 justify-center items-center">
             <div className="flex justify-center items-center gap-2">
               <FontAwesomeIcon icon={faClock} className="text-aztecBlue" />
-              {packageDetail.time}
+              {packageDetail.time} Minutes
             </div>
           </div>
           <p className="text-sm text-black font-semibold mt-2">
