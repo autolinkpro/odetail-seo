@@ -27,7 +27,11 @@ const Button: React.FC<ButtonProps> = ({ theme, text, phone }) => {
   }
 
   if (theme === "filled") {
-    return <button className={filledClasses}>{text}</button>;
+    return (
+      <button className={filledClasses} onClick={() => router.push("/quote")}>
+        {text}
+      </button>
+    );
   }
 
   return (
