@@ -42,8 +42,17 @@ const AboutUs = () => {
           {/* Features List */}
           <ul className="mt-2 space-y-2 text-lg text-gray-900 font-normal text-left">
             {packageDetail.features.map((feature, i) => (
-              <li key={i} className="flex items-start">
-                <span className="text-aztecGreen mr-2 text-lg">✓</span>
+              <li
+                key={i}
+                className={`${
+                  packageDetail.title.includes("Premium") &&
+                  feature.includes("shampoo")
+                    ? "text-aztecBlue font-semibold"
+                    : "text-black"
+                } flex items-start`}
+              >
+                <span className={`text-aztecGreen mr-2 text-lg`}>✓</span>
+
                 {feature}
               </li>
             ))}

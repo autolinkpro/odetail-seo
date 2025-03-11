@@ -58,7 +58,7 @@ const Quote = () => {
           />
         </div> */}
         <h2 className="text-4xl md:text-9xl tracking-wide font-extrabold text-aztecBlue mb-4 z-10">
-          Auto Glass Repair
+          Detailing & More
         </h2>
         <h3 className="text-2xl md:text-7xl tracking-wide font-extrabold text-black mt-4 z-10">
           Online Booking Service
