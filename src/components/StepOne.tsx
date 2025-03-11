@@ -54,12 +54,6 @@ const reactSelectStyles = {
   }),
 };
 
-const Loader: React.FC = () => (
-  <div className="text-center text-aztecBlue font-semibold text-lg">
-    Loading...
-  </div>
-);
-
 const StepOne: React.FC = () => {
   const { setBookingData } = useBooking();
   const [selectedType, setSelectedType] = useState<number>(0);
@@ -68,9 +62,11 @@ const StepOne: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedMake, setSelectedMake] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const swiperRef = useRef<any>(null);
 
   const fetchMakes = async (vehicleType: string) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/${vehicleType}?format=json`
@@ -82,6 +78,8 @@ const StepOne: React.FC = () => {
       setMakes(uniqueMakes);
     } catch (error) {
       console.error("Error fetching makes:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -90,6 +88,7 @@ const StepOne: React.FC = () => {
     year: string,
     vehicleType: string
   ) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/${make}/modelyear/${year}/vehicletype/${vehicleType}?format=json`
@@ -101,6 +100,8 @@ const StepOne: React.FC = () => {
       setModels(uniqueModels);
     } catch (error) {
       console.error("Error fetching models:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -226,45 +227,54 @@ const StepOne: React.FC = () => {
         </Swiper>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 md:gap-12 items-center mt-4">
-        <Select
-          value={
-            selectedYear ? { value: selectedYear, label: selectedYear } : null
-          }
-          onChange={handleYearChange}
-          options={Array.from({ length: 25 }, (_, i) => ({
-            value: (2023 - i).toString(),
-            label: (2023 - i).toString(),
-          }))}
-          placeholder="Select Year"
-          styles={reactSelectStyles}
-          isClearable
-        />
-        <Select
-          value={
-            selectedMake ? { value: selectedMake, label: selectedMake } : null
-          }
-          onChange={handleMakeChange}
-          options={makes.map((make) => ({ value: make, label: make }))}
-          placeholder="Select Make"
-          styles={reactSelectStyles}
-          isClearable
-          isDisabled={!selectedYear}
-        />
-        <Select
-          value={
-            selectedModel
-              ? { value: selectedModel, label: selectedModel }
-              : null
-          }
-          onChange={handleModelChange}
-          options={models.map((model) => ({ value: model, label: model }))}
-          placeholder="Select Model"
-          styles={reactSelectStyles}
-          isClearable
-          isDisabled={!selectedMake}
-        />
-      </div>
+      {!isLoading ? (
+        <div className="flex flex-col md:flex-row gap-4 md:gap-12 items-center mt-4">
+          <Select
+            value={
+              selectedYear ? { value: selectedYear, label: selectedYear } : null
+            }
+            onChange={handleYearChange}
+            options={Array.from({ length: 25 }, (_, i) => ({
+              value: (2023 - i).toString(),
+              label: (2023 - i).toString(),
+            }))}
+            placeholder="Select Year"
+            styles={reactSelectStyles}
+            isClearable
+          />
+          <Select
+            value={
+              selectedMake ? { value: selectedMake, label: selectedMake } : null
+            }
+            onChange={handleMakeChange}
+            options={makes.map((make) => ({ value: make, label: make }))}
+            placeholder="Select Make"
+            styles={reactSelectStyles}
+            isClearable
+            isDisabled={!selectedYear}
+          />
+          <Select
+            value={
+              selectedModel
+                ? { value: selectedModel, label: selectedModel }
+                : null
+            }
+            onChange={handleModelChange}
+            options={models.map((model) => ({ value: model, label: model }))}
+            placeholder="Select Model"
+            styles={reactSelectStyles}
+            isClearable
+            isDisabled={!selectedMake}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col md:flex-row gap-4 md:gap-12 items-center mt-4">
+          {" "}
+          <div className="w-56 h-12 bg-gray-400 rounded-lg animate-pulse" />
+          <div className="w-56 h-12 bg-gray-400 rounded-lg animate-pulse" />
+          <div className="w-56 h-12 bg-gray-400 rounded-lg animate-pulse" />
+        </div>
+      )}
     </div>
   );
 };

@@ -43,7 +43,7 @@ const StepTwo: React.FC = () => {
       {detailPackages.map((pkg, index) => (
         <div
           key={index}
-          className={`relative flex flex-col justify-between h-full min-h-[60vh] rounded-lg p-6 transition-all duration-300 shadow-lg hover:scale-105 ${
+          className={`relative flex flex-col justify-between h-full min-h-[75vh] rounded-lg p-6 transition-all duration-300 shadow-lg hover:scale-105 ${
             selectedPackage === index ? "scale-105" : ""
           } ${
             pkg.title.includes("Deluxe")
@@ -97,7 +97,7 @@ const StepTwo: React.FC = () => {
           )}
 
           {/* Duration */}
-          <div className="flex items-center text-gray-600 mt-4">
+          <div className="flex items-center text-gray-600 my-4">
             <FontAwesomeIcon icon={faClock} className="mr-2 text-aztecBlue" />
             <span
               className={`${

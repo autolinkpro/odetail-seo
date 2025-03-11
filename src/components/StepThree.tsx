@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faCheck, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { useBooking } from "@/hooks/useBooking";
 import { Addons } from "@/utils/constants";
 import Image from "next/image";
@@ -44,8 +44,8 @@ const StepThree: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-5xl py-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl px-8 cursor-pointer">
+    <div className="flex flex-col items-center justify-center w-full py-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full px-8 cursor-pointer">
         {Addons.map((addon, index) => (
           <div
             key={index}
@@ -75,9 +75,16 @@ const StepThree: React.FC = () => {
                   <h3 className="text-2xl font-bold text-black mb-2">
                     {addon.title}
                   </h3>
-                  <p className="text-black text-sm mb-4 font-normal">
+                  <p className="text-black text-sm mb-2 font-normal">
                     {addon.description}
                   </p>
+                  <div className="flex items-center gap-2 font-bold text-lg">
+                    <FontAwesomeIcon
+                      icon={faWallet}
+                      className="text-aztecBlue"
+                    />
+                    ${addon.price}
+                  </div>
                 </div>
               </div>
               {/* Add Button */}

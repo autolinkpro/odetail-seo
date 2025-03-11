@@ -6,8 +6,45 @@ import StepTwo from "@/components/StepTwo";
 import StepThree from "@/components/StepThree";
 import StepFour from "@/components/StepFour";
 import StepFive from "@/components/StepFive";
+import StepTwoB from "@/components/StepTwoB";
+import StepThreeB from "@/components/StepThreeB";
+import { useService } from "@/hooks/useService";
+import StepThreeTint from "@/components/StepThreeTint";
+import TintSelector from "@/components/TintSelector";
+
+interface ServiceConfig {
+  [key: string]: {
+    title: string;
+    subtitle?: string;
+    footer?: string;
+    component: JSX.Element;
+  };
+}
 
 const Quote = () => {
+  const serviceConfig: ServiceConfig = {
+    windshield: {
+      title: "Specify The Glass",
+      subtitle: "Which Glass Needs Replacement",
+      footer:
+        "Windshield replacements include a complimentary 6 months of free rock chip repairs",
+      component: <StepThreeB />,
+    },
+    detail: {
+      title: "Additional Services",
+      component: <StepThree />,
+    },
+    tinting: {
+      title: "Specify The Tint",
+      footer:
+        "Estimated duration is the minimum time required. Time varies based on the vehicle",
+      component: <StepThreeTint />,
+    },
+  };
+
+  const { serviceContext } = useService();
+  const { title, subtitle, footer, component } =
+    serviceConfig[serviceContext.serviceType] || serviceConfig.windshield;
   return (
     <div className="flex flex-col w-full h-full items-center bg-gray-300">
       {/* Landing Section */}
@@ -54,15 +91,36 @@ const Quote = () => {
           Step 02
         </h3>
         <h2 className="text-3xl md:text-5xl font-bold text-black leading-5">
-          Select Detail Package
+          Select Service Type
         </h2>
-        <StepTwo />
+        <StepTwoB />
+        {serviceContext.serviceType === "tinting" && (
+          <div className="flex flex-col justify-center items-center gap-4">
+            <TintSelector />
+            <p className="text-black font-semibold text-sm md:text-lg px-4">
+              Select To Preview Tint Percentage
+            </p>
+          </div>
+        )}
       </div>
 
+      {serviceContext.serviceType === "detail" && (
+        <div className="relative flex flex-col w-full items-center py-12 bg-gray-200">
+          <h3 className="text-xl font-bold uppercase text-aztecBlue mb-2 tracking-widest">
+            Step 02.b
+          </h3>
+          <h2 className="text-3xl md:text-5xl font-bold text-black leading-5">
+            Select Detail Package
+          </h2>
+          <StepTwo />
+        </div>
+      )}
+
       {/* Step 03 */}
+
       <div className="relative flex flex-col w-full items-center bg-cover bg-center pb-8 bg-aztecBlack-dark">
         <div
-          className="absolute w-full h-screen bg-[url('/static/carbon_2.png')]"
+          className="absolute w-full h-full bg-[url('/static/carbon_2.png')]"
           style={{
             backgroundRepeat: "repeat",
             backgroundSize: "auto",
@@ -72,9 +130,20 @@ const Quote = () => {
           Step 03
         </h3>
         <h2 className="text-3xl md:text-5xl font-bold text-white z-10">
-          Additional Services
+          {title}
         </h2>
-        <StepThree />
+        {subtitle && (
+          <p className="text-sm md:text-lg font-semibold text-gray-200 max-w-4xl text-center mt-4">
+            {subtitle}
+          </p>
+        )}
+        {component}
+        {serviceContext.serviceType === "windshield" ||
+          (serviceContext.serviceType === "tinting" && (
+            <p className="text-gray-400 text-sm font-normal">
+              <span className="text-red-500 text-lg">*</span> {footer}
+            </p>
+          ))}
       </div>
 
       {/* Step 04 */}

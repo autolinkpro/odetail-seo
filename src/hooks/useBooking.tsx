@@ -13,9 +13,15 @@ interface BookingData {
     name: string;
     addons: {
       name: string;
+      addonDur?: string;
     }[];
     duration: string;
   } | null;
+  tint: {
+    name: string;
+    percent: string;
+    tintDur: string;
+  }[];
 }
 
 interface BookingContextType {
@@ -46,6 +52,7 @@ export const BookingProvider = ({ children }: BookingProviderProps) => {
     selectedDate: "",
     selectedTime: "",
     package: null,
+    tint: [],
   });
 
   return (

@@ -17,7 +17,7 @@ const AboutUs = () => {
       {detailPackages.map((packageDetail, index) => (
         <div
           key={index}
-          className={`relative bg-white rounded-lg shadow-lg p-6 text-center border border-gray-300 
+          className={`relative bg-white rounded-lg shadow-lg p-6 text-center border border-gray-300 lg:min-h-screen flex flex-col justify-between gap-2
             ${
               packageDetail.title.includes("Deluxe")
                 ? "border-blue-500 shadow-xl py-8"
@@ -40,7 +40,7 @@ const AboutUs = () => {
           <div className="w-full h-[1.5px] bg-gray-400 my-4" />
 
           {/* Features List */}
-          <ul className="mt-4 space-y-2 text-lg text-gray-900 font-normal text-left">
+          <ul className="mt-2 space-y-2 text-lg text-gray-900 font-normal text-left">
             {packageDetail.features.map((feature, i) => (
               <li key={i} className="flex items-start">
                 <span className="text-aztecGreen mr-2 text-lg">✓</span>
@@ -67,12 +67,14 @@ const AboutUs = () => {
           )}
 
           {/* Call to Action */}
-          <button
-            className="mt-6 w-full bg-aztecBlue text-white py-2 rounded-full hover:bg-blue-600 transition font-bold"
-            onClick={() => router.push("/quote")}
-          >
-            Get Package
-          </button>
+          <div className="mt-auto">
+            <button
+              className="w-full bg-aztecBlue text-white py-2 rounded-full hover:bg-blue-600 transition font-bold"
+              onClick={() => router.push("/quote")}
+            >
+              Get Package
+            </button>
+          </div>
 
           {/* Highlighted Badge for Deluxe */}
           {packageDetail.title.includes("Deluxe") && (

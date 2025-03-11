@@ -5,6 +5,7 @@ import "./globals.css";
 import { BookingProvider } from "@/hooks/useBooking";
 import NavBar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ServiceProvider } from "@/hooks/useService";
 
 export const metadata: Metadata = {
   title: "O Detail",
@@ -20,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased`}>
         <BookingProvider>
-          <NavBar />
-          {children} <ToastContainer position="bottom-right" theme="dark" />
+          <ServiceProvider>
+            <NavBar />
+            {children} <ToastContainer position="bottom-right" theme="dark" />
+          </ServiceProvider>
         </BookingProvider>
         <Footer />
       </body>

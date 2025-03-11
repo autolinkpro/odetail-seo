@@ -47,6 +47,9 @@ const StepFour: React.FC = () => {
 
     const [year, month, day] = date.split("-").map(Number);
     const dateTime = new Date(year, month - 1, day, hour24, minute);
+    const localDateTime = new Date(
+      dateTime.getTime() + dateTime.getTimezoneOffset() * 60000
+    );
 
     if (isBefore(dateTime, now)) return;
 
@@ -57,7 +60,7 @@ const StepFour: React.FC = () => {
 
     setBookingData((prev) => ({
       ...prev,
-      selectedDate: format(new Date(date), "MMMM dd, yyyy"),
+      selectedDate: format(localDateTime, "MMMM dd, yyyy"),
       selectedTime: time,
     }));
   };
