@@ -9,7 +9,9 @@ import { menuStyles } from "@/utils/menuStyles";
 
 const NavItems: React.FC = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Handle Click Outside to Close Dropdown
   useEffect(() => {
@@ -31,47 +33,103 @@ const NavItems: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isDropdownOpen]);
 
+  // Handle Click Outside to Close Mobile Menu
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        menuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [menuOpen]);
+
+  // Close the mobile menu when an item is clicked
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <>
       {/* Mobile Menu */}
-      <div className="md:hidden">
-        <Menu right styles={menuStyles}>
+      <div className="md:hidden" ref={menuRef}>
+        <Menu
+          right
+          styles={menuStyles}
+          isOpen={menuOpen}
+          onStateChange={({ isOpen }) => setMenuOpen(isOpen)}
+        >
           <ul className="flex flex-col list-none space-y-3 text-xl text-white">
             <li>
-              <Link href="/" className="hover:text-gray-300">
+              <Link
+                href="/"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/quote" className="hover:text-gray-300">
+              <Link
+                href="/quote"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
                 Free Quote
               </Link>
             </li>
             <li>
-              <Link href="/mobile-service" className="hover:text-gray-300">
-                Mobile Service
+              <Link
+                href="/tint"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
+                Tinting Service
               </Link>
             </li>
             <li>
               <Link
                 href="/windshield-replacement"
                 className="hover:text-gray-300"
+                onClick={closeMenu}
               >
                 Windshield Replacement
               </Link>
             </li>
             <li>
-              <Link href="/chip-repair" className="hover:text-gray-300">
+              <Link
+                href="/chip-repair"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
                 Chip Repair
               </Link>
             </li>
             <li>
-              <Link href="/privacy-policy" className="hover:text-gray-300">
+              <Link
+                href="/privacy-policy"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-gray-300">
+              <Link
+                href="/contact"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
                 Contact
               </Link>
             </li>
@@ -92,6 +150,11 @@ const NavItems: React.FC = () => {
           </Link>
         </li>
         <li>
+          <Link href="/tint" className="hover:text-gray-300">
+            Tinting Service
+          </Link>
+        </li>
+        <li>
           <Link href="/windshield-replacement" className="hover:text-gray-300">
             Windshield Replacement
           </Link>
@@ -109,7 +172,7 @@ const NavItems: React.FC = () => {
           {isDropdownOpen && (
             <ul
               className="absolute top-full right-0 mt-2 w-40 bg-[#1d2124] text-white rounded-md shadow-lg p-2 border-b-2 border-aztecBlue"
-              onMouseLeave={() => setDropdownOpen((prev) => !prev)}
+              onMouseLeave={() => setDropdownOpen(false)}
             >
               <li className="p-2 hover:text-gray-300">
                 <Link href="/chip-repair">Chip Repair</Link>

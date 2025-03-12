@@ -25,22 +25,22 @@ const AboutUs = () => {
             } 
             transition-transform duration-300 hover:scale-105 w-full md:w-1/2 max-w-lg`}
         >
-          <h3 className="text-3xl font-black text-aztecBlue">
+          <h3 className="text-2xl md:text-3xl font-black text-aztecBlue">
             {packageDetail.title}
           </h3>
-          <div className="flex text-lg text-black font-bold gap-2 justify-center items-center">
+          <div className="flex text-base md:text-lg text-black font-bold gap-2 justify-center items-center">
             <div className="flex justify-center items-center gap-2">
               <FontAwesomeIcon icon={faClock} className="text-aztecBlue" />
               {packageDetail.time} Minutes
             </div>
           </div>
-          <p className="text-sm text-black font-semibold mt-2">
+          <p className="text-xs md:text-sm text-black font-semibold mt-2">
             {packageDetail.description}
           </p>
           <div className="w-full h-[1.5px] bg-gray-400 my-4" />
 
           {/* Features List */}
-          <ul className="mt-2 space-y-2 text-lg text-gray-900 font-normal text-left">
+          <ul className="mt-2 space-y-2 text-sm md:text-lg text-gray-900 font-normal text-left">
             {packageDetail.features.map((feature, i) => (
               <li
                 key={i}
@@ -61,10 +61,10 @@ const AboutUs = () => {
           {/* Shine Package (Only for Deluxe) */}
           {packageDetail.shinePackage && (
             <>
-              <h4 className="mt-6 text-lg font-semibold text-black">
+              <h4 className="mt-4 md:mt-6 text-base md:text-lg font-semibold text-black">
                 + Shine Package Included:
               </h4>
-              <ul className="mt-2 space-y-2 text-base text-gray-900 text-left">
+              <ul className="mt-2 space-y-2 text-sm md:text-base text-gray-900 text-left">
                 {packageDetail.shinePackage.map((item, i) => (
                   <li key={i} className="flex items-start">
                     <span className="mr-2 text-lg">✨</span>
