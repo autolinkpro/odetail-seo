@@ -90,6 +90,24 @@ const NavItems: React.FC = () => {
             </li>
             <li>
               <Link
+                href="/ppf"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
+                PPF
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/polishing"
+                className="hover:text-gray-300"
+                onClick={closeMenu}
+              >
+                Polishing
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/tint"
                 className="hover:text-gray-300"
                 onClick={closeMenu}
@@ -174,6 +192,12 @@ const NavItems: React.FC = () => {
               className="absolute top-full right-0 mt-2 w-40 bg-[#1d2124] text-white rounded-md shadow-lg p-2 border-b-2 border-aztecBlue"
               onMouseLeave={() => setDropdownOpen(false)}
             >
+              <li className="p-2 hover:text-gray-300">
+                <Link href="/ppf">PPF</Link>
+              </li>
+              <li className="p-2 hover:text-gray-300">
+                <Link href="/polishing">Polishing</Link>
+              </li>
               <li className="p-2 hover:text-gray-300">
                 <Link href="/chip-repair">Chip Repair</Link>
               </li>
