@@ -63,7 +63,8 @@ const StepTwo: React.FC = () => {
             </h3>
 
             {/* Price */}
-            <p className="text-2xl font-extrabold my-2">${pkg.price}</p>
+            {/* <p className="text-2xl font-extrabold my-2">${pkg.price}</p> */}
+            <p className="text-2xl font-extrabold my-2"></p>
           </div>
 
           {/* Features List */}
@@ -104,7 +105,7 @@ const StepTwo: React.FC = () => {
                 pkg.title.includes("Deluxe") ? "text-gray-300" : "text-gray-600"
               } font-medium`}
             >
-              {pkg.time}
+              {pkg.time} minutes
             </span>
           </div>
 
