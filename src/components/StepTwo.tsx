@@ -38,8 +38,41 @@ const StepTwo: React.FC = () => {
     }
   };
 
+  const highlightKeywords = (text: string) => {
+    const parts = text.split(
+      /(\$\d+(?:\.\d{1,2})?|(?:\d{1,4})[- ]?(?:minute|hour|day|year)s?|Our Most Popular Choice!)/gi
+    );
+
+    return parts.map((part, i) => {
+      if (/^\$\d/.test(part)) {
+        // 💰 Highlight prices
+        return (
+          <span key={i} className="text-amber-500 font-semibold">
+            {part}
+          </span>
+        );
+      } else if (/\d+[- ]?(minute|hour|day|year)/i.test(part)) {
+        // ⏱ Highlight time durations
+        return (
+          <span key={i} className="text-blue-500 font-semibold">
+            {part}
+          </span>
+        );
+      } else if (/Our Most Popular Choice!/i.test(part)) {
+        // 💎 Highlight special phrase
+        return (
+          <span key={i} className="font-bold tracking-wide">
+            {part}
+          </span>
+        );
+      } else {
+        return part;
+      }
+    });
+  };
+
   return (
-    <div className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-10 py-12 px-8">
+    <div className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-10 py-12 px-4">
       {detailPackages.map((pkg, index) => (
         <div
           key={index}
@@ -62,6 +95,16 @@ const StepTwo: React.FC = () => {
               {pkg.title}
             </h3>
 
+            <div className="w-3/4 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-2" />
+
+            {/*Description*/}
+            <p className="text-gray-600 text-xs md:text-sm max-w-md text-center px-4 py-2 leading-relaxed tracking-wide italic">
+              {highlightKeywords(pkg.description)}
+            </p>
+
+            {/* Separation line */}
+            <div className="w-3/4 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-2" />
+
             {/* Price */}
             {/* <p className="text-2xl font-extrabold my-2">${pkg.price}</p> */}
             <p className="text-2xl font-extrabold my-2"></p>
@@ -72,13 +115,13 @@ const StepTwo: React.FC = () => {
             {pkg.features.map((feature, i) => (
               <li key={i} className="flex items-start space-x-2">
                 <FontAwesomeIcon icon={faCheck} className="text-green-500" />
-                <span>{feature}</span>
+                <span>{highlightKeywords(feature)}</span>
               </li>
             ))}
           </ul>
 
           {/* Shine Package (Only for Deluxe) */}
-          {pkg.shinePackage && (
+          {/* {pkg.shinePackage && (
             <>
               <h4 className="my-4 text-md font-semibold">
                 + Shine Package Included:
@@ -95,7 +138,7 @@ const StepTwo: React.FC = () => {
                 ))}
               </ul>
             </>
-          )}
+          )} */}
 
           {/* Duration */}
           <div className="flex items-center text-gray-600 my-4">
