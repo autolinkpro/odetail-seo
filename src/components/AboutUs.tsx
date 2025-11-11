@@ -17,13 +17,13 @@ const AboutUs = () => {
       {detailPackages.map((packageDetail, index) => (
         <div
           key={index}
-          className={`relative bg-white rounded-lg shadow-lg p-6 text-center border border-gray-300 lg:min-h-screen flex flex-col justify-between gap-2
+          className={`relative bg-white rounded-lg shadow-lg p-6 text-center border border-gray-300 h-full min-h-[75vh] flex flex-col justify-between gap-2
             ${
-              packageDetail.title.includes("Deluxe")
-                ? "border-blue-500 shadow-xl py-8"
+              packageDetail.title.includes("Signature")
+                ? "border-aztecBlue shadow-xl py-8"
                 : "py-6"
             } 
-            transition-transform duration-300 hover:scale-105 w-full md:w-1/2 max-w-lg`}
+            transition-transform duration-300 hover:scale-105 w-full md:w-1/2 max-w-md`}
         >
           <h3 className="text-2xl md:text-3xl font-black text-aztecBlue">
             {packageDetail.title}
@@ -37,7 +37,7 @@ const AboutUs = () => {
           <p className="text-xs md:text-sm text-black font-semibold mt-2">
             {packageDetail.description}
           </p>
-          <div className="w-full h-[1.5px] bg-gray-400 my-4" />
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-2" />
 
           {/* Features List */}
           <ul className="mt-2 space-y-2 text-sm md:text-lg text-gray-900 font-normal text-left">
