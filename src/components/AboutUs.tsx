@@ -59,7 +59,7 @@ const AboutUs = () => {
           </ul>
 
           {/* Shine Package (Only for Deluxe) */}
-          {packageDetail.shinePackage && (
+          {/* {packageDetail.shinePackage && (
             <>
               <h4 className="mt-4 md:mt-6 text-base md:text-lg font-semibold text-black">
                 + Shine Package Included:
@@ -73,7 +73,7 @@ const AboutUs = () => {
                 ))}
               </ul>
             </>
-          )}
+          )} */}
 
           {/* Call to Action */}
           <div className="mt-auto">
